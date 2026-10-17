@@ -78,7 +78,7 @@ jobs:
         run: |
           set -eo pipefail
           cd LinuxGTK
-          swift build -c release
+          swift build -c release --static-swift-stdlib
           cp .build/release/gtk-calc  ../gtk-calc-linux-x86_64
           cp .build/release/gtk-paint ../gtk-paint-linux-x86_64
           cd ..
