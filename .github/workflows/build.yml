@@ -71,8 +71,8 @@ jobs:
     container: swift:6.1
     steps:
       - uses: actions/checkout@v4
-      - name: Install GTK4
-        run: apt-get update && apt-get install -y --no-install-recommends libgtk-4-dev pkg-config
+      - name: Install WebKit2GTK + GTK3
+        run: apt-get update && apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev pkg-config
       - name: Build GTK Calculator and Paint
         shell: bash
         run: |

@@ -1,4 +1,4 @@
-module CGtk [system] {
+module CWeb [system] {
     header "shim.h"
     export *
 }
