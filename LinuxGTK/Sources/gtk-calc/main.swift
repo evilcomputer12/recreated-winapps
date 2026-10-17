@@ -2,10 +2,11 @@ import CGtk
 import CalcCore
 import Foundation
 
-// Cast between GObject-derived pointer types (GtkWidget* <-> GtkWindow*, etc.)
-@inline(__always) func cast<T, U>(_ p: UnsafeMutablePointer<T>?) -> UnsafeMutablePointer<U>? {
-    p.map { UnsafeMutablePointer<U>(OpaquePointer($0)) }
-}
+// Cast between GObject pointer types (GTK4 imports some typed, some as OpaquePointer).
+@inline(__always) func cast<T, U>(_ p: UnsafeMutablePointer<T>?) -> UnsafeMutablePointer<U>? { p.map { UnsafeMutablePointer<U>(OpaquePointer($0)) } }
+@inline(__always) func cast<T>(_ p: UnsafeMutablePointer<T>?) -> OpaquePointer? { p.map { OpaquePointer($0) } }
+@inline(__always) func cast<U>(_ p: OpaquePointer?) -> UnsafeMutablePointer<U>? { p.map { UnsafeMutablePointer<U>($0) } }
+@inline(__always) func cast(_ p: OpaquePointer?) -> OpaquePointer? { p }
 func connect<T>(_ obj: UnsafeMutablePointer<T>!, _ signal: String, _ cb: GCallback) {
     g_signal_connect_data(UnsafeMutableRawPointer(obj), signal, cb, nil, nil, GConnectFlags(rawValue: 0))
 }
