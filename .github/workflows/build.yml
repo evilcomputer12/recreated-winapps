@@ -65,9 +65,32 @@ jobs:
           name: linux-binaries
           path: calc-linux-x86_64.tar.gz
 
+  linux-gtk:
+    name: Linux GTK GUIs
+    runs-on: ubuntu-latest
+    container: swift:6.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install GTK4
+        run: apt-get update && apt-get install -y --no-install-recommends libgtk-4-dev pkg-config
+      - name: Build GTK Calculator and Paint
+        shell: bash
+        run: |
+          set -eo pipefail
+          cd LinuxGTK
+          swift build -c release
+          cp .build/release/gtk-calc  ../gtk-calc-linux-x86_64
+          cp .build/release/gtk-paint ../gtk-paint-linux-x86_64
+          cd ..
+          tar czf gtk-apps-linux-x86_64.tar.gz gtk-calc-linux-x86_64 gtk-paint-linux-x86_64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-gtk-binaries
+          path: gtk-apps-linux-x86_64.tar.gz
+
   release:
     name: Publish release
-    needs: [macos, linux]
+    needs: [macos, linux, linux-gtk]
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
@@ -81,3 +104,4 @@ jobs:
             macos-binaries/Paint-macOS-arm64.zip
             macos-binaries/calc-macos-arm64.tar.gz
             linux-binaries/calc-linux-x86_64.tar.gz
+            linux-gtk-binaries/gtk-apps-linux-x86_64.tar.gz
