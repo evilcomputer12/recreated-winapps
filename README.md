@@ -1,5 +1,16 @@
 # Recreated native macOS apps — Calculator & Paint
 
+## Downloads
+Prebuilt binaries are published on the [Releases](../../releases) page, built by CI
+(`.github/workflows/build.yml`) on GitHub's own macOS and Linux runners:
+- **macOS (Apple Silicon):** `Calculator-macOS-arm64.zip`, `Paint-macOS-arm64.zip` — unzip and move to `~/Applications`. They're ad-hoc signed, so on first launch right-click → **Open** to clear Gatekeeper.
+- **macOS / Linux CLI:** `calc-macos-arm64.tar.gz`, `calc-linux-x86_64.tar.gz` — the portable Calculator engine as a command-line tool (`calc eval "2+3*4"`, `calc prog -1 8`, `calc conv 100 celsius fahrenheit`). The Linux build links the Swift stdlib statically. `chmod +x calc-*` after extracting.
+
+The GUI apps are macOS-only (SwiftUI/AppKit); the `calc` CLI is the Foundation-only engine (`CalcCoreLinux/`) that also compiles and runs on Linux.
+
+---
+
+
 Native SwiftUI/AppKit recreations of Windows Calculator and Paint, grounded in the
 reverse-engineering in `../REPORT.md` (Calculator's view-model set; Paint's tool set — with
 **all generative-AI features omitted**).
