@@ -4,9 +4,10 @@
 Prebuilt binaries are published on the [Releases](../../releases) page, built by CI
 (`.github/workflows/build.yml`) on GitHub's own macOS and Linux runners:
 - **macOS (Apple Silicon):** `Calculator-macOS-arm64.zip`, `Paint-macOS-arm64.zip` — unzip and move to `~/Applications`. They're ad-hoc signed, so on first launch right-click → **Open** to clear Gatekeeper.
-- **macOS / Linux CLI:** `calc-macos-arm64.tar.gz`, `calc-linux-x86_64.tar.gz` — the portable Calculator engine as a command-line tool (`calc eval "2+3*4"`, `calc prog -1 8`, `calc conv 100 celsius fahrenheit`). The Linux build links the Swift stdlib statically. `chmod +x calc-*` after extracting.
+- **Linux GUI (GTK4):** `gtk-apps-linux-x86_64.tar.gz` — **`gtk-calc`** and **`gtk-paint`**, native Swift + GTK4 Linux apps (`LinuxGTK/`). Requires the GTK4 runtime: `sudo apt install libgtk-4-1`. Then `chmod +x gtk-*` and run. gtk-calc is a scientific expression calculator (reuses the engine); gtk-paint is a Cairo canvas (pencil, 8 colours, size, clear, save PNG).
+- **macOS / Linux CLI:** `calc-macos-arm64.tar.gz`, `calc-linux-x86_64.tar.gz` — the portable Calculator engine as a command-line tool (`calc eval "2+3*4"`, `calc prog -1 8`, `calc conv 100 celsius fahrenheit`). The Linux CLI links the Swift stdlib statically. `chmod +x calc-*` after extracting.
 
-The GUI apps are macOS-only (SwiftUI/AppKit); the `calc` CLI is the Foundation-only engine (`CalcCoreLinux/`) that also compiles and runs on Linux.
+The full-featured GUI apps are macOS-only (SwiftUI/AppKit); the Linux GUIs are Swift + GTK4 (`LinuxGTK/`), and the `calc` CLI is the Foundation-only engine (`CalcCoreLinux/`).
 
 ---
 
