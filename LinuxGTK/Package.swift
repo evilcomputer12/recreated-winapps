@@ -11,7 +11,7 @@ let package = Package(
     targets: [
         .systemLibrary(name: "CGtk", pkgConfig: "gtk4", providers: [.apt(["libgtk-4-dev"])]),
         .executableTarget(name: "gtk-calc", dependencies: [
-            "CGtk", .product(name: "CalcCore", package: "calc"),
+            "CGtk", .product(name: "CalcCore", package: "CalcCoreLinux"),
         ]),
         .executableTarget(name: "gtk-paint", dependencies: ["CGtk"]),
     ]
